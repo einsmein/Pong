@@ -19,6 +19,7 @@ public:
 
     float getXVelocity();
 
+    void setPosition(float x, float y);
     void start();
     void reboundSides();
     void reboundBatOrTop();

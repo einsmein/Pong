@@ -19,6 +19,10 @@ RectangleShape Bat::getShape() {
     return batShape;
 }
 
+void Bat::setXPosition(float x) {
+    position.x = x;
+}
+
 void Bat::moveLeft() {
     position.x -= batSpeed;
 }

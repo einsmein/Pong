@@ -21,9 +21,14 @@ float Ball::getXVelocity() {
     return xVelocity;
 }
 
+void Ball::setPosition(float x, float y) {
+    position.x = x;
+    position.y = y;
+}
+
 void Ball::start() {
-    yVelocity = -.6f;
-    xVelocity = .6f;
+    yVelocity = -.4f;
+    xVelocity = .4f;
 }
 
 void Ball::reboundSides() {
@@ -38,8 +43,6 @@ void Ball::reboundBatOrTop() {
 
 void Ball::hitBottom() {
     // reset position of the ball to middle horizontal
-    position.y = 768-35;
-    position.x = 500;
     xVelocity = 0;
     yVelocity = 0;
 }

@@ -16,6 +16,8 @@ public:
     FloatRect getPosition();
     RectangleShape getShape();
 
+    void setXPosition(float x);
+
     void moveLeft();
     void moveRight();
     void update();

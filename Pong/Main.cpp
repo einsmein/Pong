@@ -21,7 +21,7 @@ int main()
     int lives = 3;
 
     // create a bat
-    Bat bat(windowWidth / 2, windowHeight - 20);
+    Bat bat(windowWidth / 2 - 25, windowHeight - 20);
 
     // create a ball
     Ball ball(windowWidth / 2, windowHeight - 35);
@@ -96,6 +96,8 @@ int main()
         // Handle ball hitting the bottom
         if (ball.getPosition().top > windowHeight) {
             ball.hitBottom();
+            bat.setXPosition(windowWidth / 2 - 25);
+            ball.setPosition(windowWidth / 2, windowHeight - 35);
             lives--;
             if (lives < 1) {
                 score = 0;
