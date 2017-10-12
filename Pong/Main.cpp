@@ -22,9 +22,13 @@ int main()
 
     // create a bat
     Bat bat(windowWidth / 2 - 25, windowHeight - 20);
+	Bat bat2(windowWidth / 3 - 25, windowHeight - 20);
+
+	bat2.setColor(Color::Yellow);
 
     // create a ball
     Ball ball(windowWidth / 2, windowHeight - 35);
+	Ball ball2(windowWidth / 3, windowHeight - 35);
 
     // create brick wall
     const int numBrickCol = 10;
@@ -73,11 +77,19 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Space)) {
             if (!gameStarted) {
                 ball.start();
+				ball2.start();
                 gameStarted = true;
             }
         }
 
 		if (gameStarted) {
+			if (Keyboard::isKeyPressed(Keyboard::A)) {
+				if (bat2.getPosition().left > 0)  bat2.moveLeft();
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::D)) {
+				if (bat2.getPosition().left + bat2.getPosition().width < windowWidth)  bat2.moveRight();
+			}
+
 			if (Keyboard::isKeyPressed(Keyboard::Left)) {
 				if (bat.getPosition().left > 0)  bat.moveLeft();
 			}
@@ -97,10 +109,13 @@ int main()
         */
 
         // Handle ball hitting the bottom
-        if (ball.getPosition().top > windowHeight) {
+        if (ball.getPosition().top > windowHeight || ball2.getPosition().top > windowHeight) {
             ball.hitBottom();
+			ball2.hitBottom();
             bat.setXPosition(windowWidth / 2 - 25);
             ball.setPosition(windowWidth / 2, windowHeight - 35);
+			bat2.setXPosition(windowWidth / 3 - 25);
+			ball2.setPosition(windowWidth / 3, windowHeight - 35);
             lives--;
             if (lives < 1) {
                 score = 0;
@@ -120,17 +135,27 @@ int main()
         if (ball.getPosition().top < 0) {
             ball.reboundBatOrTop();
         }
+		if (ball2.getPosition().top < 0) {
+			ball2.reboundBatOrTop();
+		}
 
         // Handle ball hitting the sides
         if (ball.getPosition().left < 0 || ball.getPosition().left + ball.getPosition().width > windowWidth) {
             ball.reboundSides();
         }
+		if (ball2.getPosition().left < 0 || ball2.getPosition().left + ball2.getPosition().width > windowWidth) {
+			ball2.reboundSides();
+		}
 
         // Handle ball hitting the bat
-        if (ball.getPosition().intersects(bat.getPosition())) {
+        if (ball.getPosition().intersects(bat.getPosition()) ||
+			ball.getPosition().intersects(bat2.getPosition())) {
             ball.reboundBatOrTop();
         }
-
+		if (ball2.getPosition().intersects(bat.getPosition()) ||
+			ball2.getPosition().intersects(bat2.getPosition())) {
+			ball2.reboundBatOrTop();
+		}
         // Handle ball hitting the brick
         for (int i = 0; i < numBrickCol; i++) {
             for (int j = 0; j < numBrickRow; j++) {
@@ -138,6 +163,12 @@ int main()
 				if (brickHit[i][j] == 0) {
 					if (ball.getPosition().intersects(bricks[i][j].getPosition())) {
 						ball.reboundBatOrTop();
+						//delete &(bricks[i][j]);
+						brickHit[i][j] = 1;
+						score++;
+					}
+					if (ball2.getPosition().intersects(bricks[i][j].getPosition())) {
+						ball2.reboundBatOrTop();
 						//delete &(bricks[i][j]);
 						brickHit[i][j] = 1;
 						score++;
@@ -160,11 +191,13 @@ int main()
         bat.update();
         ball.update();
 
+		bat2.update();
+		ball2.update();
+
         // Update the HUD text
         std::stringstream ss;
         ss << "Score: " << score << "      Lives: " << lives;
         hud.setString(ss.str());
-
 
         /*
         Draw the frame
@@ -178,6 +211,8 @@ int main()
 
         window.draw(bat.getShape());
         window.draw(ball.getShape());
+		window.draw(bat2.getShape());
+		window.draw(ball2.getShape());
 		for (int i = 0; i < numBrickCol; i++) {
 			for (int j = 0; j < numBrickRow; j++) {
 				if (brickHit[i][j] != -1) {
@@ -192,3 +227,4 @@ int main()
 
     return 0;
 }
+

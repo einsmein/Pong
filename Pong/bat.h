@@ -8,7 +8,7 @@ private:
     Vector2f position;
     RectangleShape batShape;
 
-    float batSpeed = .3f;
+    float batSpeed = .5f;
 
 public:
     Bat(float startX, float startY);
@@ -17,6 +17,7 @@ public:
     RectangleShape getShape();
 
     void setXPosition(float x);
+	void setColor(Color color);
 
     void moveLeft();
     void moveRight();

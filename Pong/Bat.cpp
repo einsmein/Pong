@@ -23,6 +23,10 @@ void Bat::setXPosition(float x) {
     position.x = x;
 }
 
+void Bat::setColor(Color color) {
+	batShape.setFillColor(color);
+}
+
 void Bat::moveLeft() {
     position.x -= batSpeed;
 }
