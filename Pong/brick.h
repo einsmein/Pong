@@ -15,5 +15,6 @@ public:
     FloatRect getPosition();
     RectangleShape getShape();
 
-    //void hitByBall();
+    void setColor(Color color);
+    void hitByBall();
 };

@@ -18,6 +18,7 @@ public:
     RectangleShape getShape();
 
     float getXVelocity();
+    float getYVelocity();
 
     void setPosition(float x, float y);
     void start();

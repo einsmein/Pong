@@ -20,3 +20,11 @@ FloatRect Brick::getPosition() {
 RectangleShape Brick::getShape() {
     return brickShape;
 }
+
+void Brick::setColor(Color color) {
+    brickShape.setFillColor(color);
+}
+
+void Brick::hitByBall() {
+    brickShape.setFillColor(Color(15, 105, 150, 255));
+}

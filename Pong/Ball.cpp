@@ -21,14 +21,18 @@ float Ball::getXVelocity() {
     return xVelocity;
 }
 
+float Ball::getYVelocity() {
+    return yVelocity;
+}
+
 void Ball::setPosition(float x, float y) {
     position.x = x;
     position.y = y;
 }
 
 void Ball::start() {
-    yVelocity = -.4f;
-    xVelocity = .4f;
+    yVelocity = -.5f;
+    xVelocity = .5f;
 }
 
 void Ball::reboundSides() {
@@ -36,8 +40,8 @@ void Ball::reboundSides() {
 }
 
 void Ball::reboundBatOrTop() {
-
-    //position.y -= (yVelocity * 30);
+    // so the ball is moved away from the bat already and doesn't get stuck there, changing Vy back and forth
+    position.y -= (yVelocity * 20); 
     yVelocity = -yVelocity;
 }
 
